@@ -80,6 +80,8 @@ python workbench.py sample_auth.jsonl --format markdown
 
 The synthetic ten-event sample produces three findings: one high-priority success-after-failures heuristic and two medium-priority login-pattern heuristics. Severity labels are **demonstration policy choices**, not CVSS scores.
 
+See the [generated sample triage report](docs/SAMPLE-REPORT.md), produced from the supplied fictional JSONL data.
+
 ### Alex's personal ownership review
 
 Use [the personal ownership checklist](docs/ALEX-OWNERSHIP.md) to reproduce the results, explain design decisions, add an original feature and test, and record authentic evidence of his own work.
