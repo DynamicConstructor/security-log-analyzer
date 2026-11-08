@@ -4,7 +4,7 @@ import argparse
 import csv
 import ipaddress
 import json
-from collections import defaultdict
+from collections import Counter, defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
 
@@ -65,15 +65,19 @@ def analyze(events, threshold=5, minutes=10, account_threshold=3):
     cross_account = []
     for ip, attempts in sorted(source_failures.items()):
         left = 0
-        best = set()
+        counts = Counter()
+        best_count = 0
         for right, attempt in enumerate(attempts):
+            counts[attempt["username"]] += 1
             while attempt["timestamp"] - attempts[left]["timestamp"] > timedelta(minutes=minutes):
+                expired = attempts[left]["username"]
+                counts[expired] -= 1
+                if counts[expired] == 0:
+                    del counts[expired]
                 left += 1
-            accounts = {r["username"] for r in attempts[left:right+1]}
-            if len(accounts) > len(best):
-                best = accounts
-        if len(best) >= account_threshold:
-            cross_account.append({"source_ip": ip, "distinct_accounts_in_window": len(best)})
+            best_count = max(best_count, len(counts))
+        if best_count >= account_threshold:
+            cross_account.append({"source_ip": ip, "distinct_accounts_in_window": best_count})
 
     return {
         "total_events": len(events),
