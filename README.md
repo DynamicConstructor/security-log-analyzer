@@ -1,5 +1,7 @@
 # Security Log Analyzer
 
+> **Flagship expansion:** Offline authentication triage with CSV/JSONL ingestion, configurable rules, structured findings, and shareable reports. AI-assisted starter/expansion; Alex's independent contributions must be recorded separately.
+
 An entry-level defensive security project for Alexander's new public portfolio.
 
 **Status:** Functional educational implementation with automated checks. Alexander must personally reproduce and extend the results before claiming personal authorship.
@@ -22,6 +24,9 @@ Requires Python 3.10+ and no third-party packages.
 ```bash
 python analyzer.py sample_auth.csv
 python analyzer.py sample_auth.csv --json --window 15 --threshold 5
+python workbench.py sample_auth.jsonl --format json
+python workbench.py sample_auth.csv --format markdown --output triage.md
+python workbench.py sample_auth.csv --format html --output triage.html
 python -m unittest discover -s tests -v
 ```
 
@@ -37,9 +42,10 @@ CSV columns: `timestamp` (ISO 8601 with timezone), `username`, `source_ip`, `eve
 
 ```mermaid
 flowchart LR
-  A[Sanitized CSV] --> B[Validate and sort]
+  A[Sanitized CSV or JSONL] --> B[Validate, normalize and sort]
   B --> C[Sliding-window rules]
-  C --> D[Human-readable or JSON report]
+  C --> D[Findings and triage guidance]
+  D --> E[JSON, Markdown or HTML]
 ```
 
 ## Sample result (synthetic data)
@@ -51,6 +57,32 @@ flowchart LR
 | Success after failures | 1 occurrence | Check whether expected user activity |
 
 No signal independently establishes malicious activity. All sample IPs use documentation-only address ranges.
+
+## Flagship workbench (new)
+
+`workbench.py` builds on the original `analyzer.py` for investigation-ready output:
+
+- **Two input formats:** CSV and newline-delimited JSON (`.jsonl`)
+- **Common UTC normalization:** timezone-aware timestamps required
+- **Configurable policy:** failure threshold, distinct-account threshold, sliding-window duration
+- **Structured finding IDs:** stable identifiers, categories, heuristic severities, evidence and recommended next steps
+- **Three output formats:** machine-readable JSON, Markdown case notes, and self-contained HTML
+- **Safe HTML rendering:** input-derived strings are escaped to prevent report injection
+- **15 automated tests:** original detection tests plus nine additional workbench tests
+
+This is a demonstrator for investigation support, **not** a full SIEM, production incident-response system, or claim that an alert proves a breach. Details: [architecture and limits](docs/FLAGSHIP-DESIGN.md) and [cloud validation](docs/VALIDATION.md).
+
+### Reproducible workbench example
+
+```bash
+python workbench.py sample_auth.jsonl --format markdown
+```
+
+The synthetic ten-event sample produces three findings: one high-priority success-after-failures heuristic and two medium-priority login-pattern heuristics. Severity labels are **demonstration policy choices**, not CVSS scores.
+
+### Alex's personal ownership review
+
+Use [the personal ownership checklist](docs/ALEX-OWNERSHIP.md) to reproduce the results, explain design decisions, add an original feature and test, and record authentic evidence of his own work.
 
 ## Interview talking points
 
@@ -70,10 +102,3 @@ No signal independently establishes malicious activity. All sample IPs use docum
 ## Resume claim (only after personally running, testing, and understanding it)
 
 > Developed a Python authentication-log analyzer using sliding-window detection to flag repeated login failures, multi-account source activity, and success-after-failure patterns; validated detection rules with automated tests.
-
-## Portfolio evidence and technical review
-
-- [Cloud validation report](docs/VALIDATION.md) — dated test results and limitations
-- [Technical case study](docs/CASE-STUDY.md) — problem, approach, engineering decisions, and next personal contribution
-
-The cloud run was AI-assisted; it does not establish Alexander's independent authorship. GitHub Actions may be unavailable due to an account-level billing restriction. Follow the local commands in the validation report to reproduce results.
