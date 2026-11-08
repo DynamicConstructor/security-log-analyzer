@@ -27,6 +27,8 @@ python analyzer.py sample_auth.csv --json --window 15 --threshold 5
 python workbench.py sample_auth.jsonl --format json
 python workbench.py sample_auth.csv --format markdown --output triage.md
 python workbench.py sample_auth.csv --format html --output triage.html
+python scenario_lab.py password_spray --csv spray-synthetic.csv
+python benchmark.py --sizes 1000 5000 10000 --repetitions 3
 python -m unittest discover -s tests -v
 ```
 
@@ -69,7 +71,13 @@ No signal independently establishes malicious activity. All sample IPs use docum
 - **Three output formats:** machine-readable JSON, Markdown case notes, and self-contained HTML
 - **Safe HTML rendering:** input-derived strings are escaped to prevent report injection
 - **Safe Markdown rendering:** untrusted identities are flattened to one line and Markdown metacharacters escaped
-- **16 automated tests:** original detection tests plus workbench security and correctness checks
+- **22 automated tests:** detection, workbench, synthetic scenarios, benchmark structure, and security checks
+
+## Realistic synthetic scenarios and reproducible performance
+
+`scenario_lab.py` offers four **fictional** situations: credential guessing followed by success, a multi-account source, ordinary separated login errors, and events outside the active time window. These are rule demonstrations, not real security incidents.
+
+`benchmark.py` measures median in-memory analysis time over deterministic generated events. One cloud run (November 8, 2026) measured 1,000 events in 3.019 ms, 5,000 in 11.301 ms, and 10,000 in 26.607 ms. These measurements exclude file loading and report output; host-dependent results are not evidence of production performance. Re-run on Alexander's own computer before claiming personal measurements.
 
 This is a demonstrator for investigation support, **not** a full SIEM, production incident-response system, or claim that an alert proves a breach. Details: [architecture and limits](docs/FLAGSHIP-DESIGN.md) and [cloud validation](docs/VALIDATION.md).
 
