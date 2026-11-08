@@ -1,0 +1,11 @@
+timestamp,username,source_ip,event
+2026-01-10T12:00:00Z,alex,192.0.2.10,failure
+2026-01-10T12:01:00Z,alex,192.0.2.10,failure
+2026-01-10T12:02:00Z,alex,192.0.2.10,failure
+2026-01-10T12:03:00Z,alex,192.0.2.10,failure
+2026-01-10T12:04:00Z,alex,192.0.2.10,failure
+2026-01-10T12:05:00Z,alex,192.0.2.10,success
+2026-01-10T12:06:00Z,blair,198.51.100.20,failure
+2026-01-10T12:07:00Z,casey,198.51.100.20,failure
+2026-01-10T12:08:00Z,drew,198.51.100.20,failure
+2026-01-10T12:09:00Z,erin,203.0.113.30,success
