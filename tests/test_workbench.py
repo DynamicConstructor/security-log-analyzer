@@ -53,6 +53,14 @@ class WorkbenchTests(unittest.TestCase):
         report = investigate(load_events(ROOT / "sample_auth.csv"))
         self.assertIn("human validation", render_markdown(report))
 
+    def test_markdown_escapes_untrusted_identity(self):
+        report = investigate(load_events(ROOT / "sample_auth.csv"))
+        report["findings"][0]["entity"] = "user`\n## FAKE SECTION [link]"
+        markdown = render_markdown(report)
+        self.assertNotIn("\n## FAKE SECTION", markdown)
+        self.assertIn("user\\`", markdown)
+        self.assertIn("\\[link\\]", markdown)
+
     def test_json_report_serializable(self):
         report = investigate(load_events(ROOT / "sample_auth.csv"))
         self.assertEqual(json.loads(json.dumps(report))["source_event_count"], 10)
