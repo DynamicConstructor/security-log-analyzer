@@ -70,3 +70,10 @@ No signal independently establishes malicious activity. All sample IPs use docum
 ## Resume claim (only after personally running, testing, and understanding it)
 
 > Developed a Python authentication-log analyzer using sliding-window detection to flag repeated login failures, multi-account source activity, and success-after-failure patterns; validated detection rules with automated tests.
+
+## Portfolio evidence and technical review
+
+- [Cloud validation report](docs/VALIDATION.md) — dated test results and limitations
+- [Technical case study](docs/CASE-STUDY.md) — problem, approach, engineering decisions, and next personal contribution
+
+The cloud run was AI-assisted; it does not establish Alexander's independent authorship. GitHub Actions may be unavailable due to an account-level billing restriction. Follow the local commands in the validation report to reproduce results.
