@@ -68,7 +68,8 @@ No signal independently establishes malicious activity. All sample IPs use docum
 - **Structured finding IDs:** stable identifiers, categories, heuristic severities, evidence and recommended next steps
 - **Three output formats:** machine-readable JSON, Markdown case notes, and self-contained HTML
 - **Safe HTML rendering:** input-derived strings are escaped to prevent report injection
-- **15 automated tests:** original detection tests plus nine additional workbench tests
+- **Safe Markdown rendering:** untrusted identities are flattened to one line and Markdown metacharacters escaped
+- **16 automated tests:** original detection tests plus workbench security and correctness checks
 
 This is a demonstrator for investigation support, **not** a full SIEM, production incident-response system, or claim that an alert proves a breach. Details: [architecture and limits](docs/FLAGSHIP-DESIGN.md) and [cloud validation](docs/VALIDATION.md).
 
@@ -98,8 +99,8 @@ Use [the personal ownership checklist](docs/ALEX-OWNERSHIP.md) to reproduce the 
 - Run the commands and save screenshots of actual output and passing tests.
 - Review each detection rule and explain it in his own words.
 - Add a new test case, document what changed, and commit it.
-- Create a separate **public** GitHub repository; do not change or copy private business repositories.
-- Replace this starter README with a case study describing his personal implementation and verified results.
+- Add an independently authored change to this existing public repository; keep private business work separate.
+- Add a case study describing only his personally implemented and verified work.
 
 ## Resume claim (only after personally running, testing, and understanding it)
 
