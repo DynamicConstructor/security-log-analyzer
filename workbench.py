@@ -9,6 +9,7 @@ import hashlib
 import html
 import ipaddress
 import json
+import re
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -113,14 +114,17 @@ def investigate(events, policy=Policy()):
 
 
 def render_markdown(report):
+    def plain(value):
+        """Keep untrusted event text from introducing Markdown structure."""
+        return re.sub(r"\s+", " ", str(value)).replace("\\", "\\\\").replace("`", "\\`").replace("[", "\\[").replace("]", "\\]").replace("*", "\\*").replace("_", "\\_")
     lines = ["# Authentication Security Triage", "",
              f"**Events:** {report['source_event_count']} | **Failures:** {report['failed_event_count']} | **Findings:** {len(report['findings'])}",
              "", report["disclaimer"], ""]
     for finding in report["findings"]:
         lines.extend([f"## {finding['id']} — {finding['category']}", "",
                       f"- Severity (heuristic): **{finding['severity']}**",
-                      f"- Subject: `{finding['entity']}`",
-                      f"- Evidence: {finding['evidence']}",
+                      f"- Subject: {plain(finding['entity'])}",
+                      f"- Evidence: {plain(finding['evidence'])}",
                       f"- Recommended triage: {finding['recommendation']}", ""])
     if not report["findings"]:
         lines.append("No heuristic findings at the current thresholds.")
