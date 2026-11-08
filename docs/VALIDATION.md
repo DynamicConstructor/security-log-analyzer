@@ -1,5 +1,7 @@
 # Cloud Validation — November 8, 2026
 
+> **Current: 22/22 Python tests passed.** Earlier counts below are historical checkpoints. GitHub Actions did not execute due the account billing restriction.
+
 **Execution:** ChatGPT-managed Linux environment, Python 3.12.14. This is AI-assisted cloud testing, not a claim that Alexander personally ran the project.
 
 ## Reproduce
