@@ -9,7 +9,16 @@ python -m unittest discover -s tests -v
 python analyzer.py sample_auth.csv --json
 ```
 
-**Result:** 6/6 automated tests passed; sample CLI demonstration passed.
+**Original analyzer result:** 6/6 automated tests passed; sample CLI demonstration passed.
+
+**Flagship expansion recheck (November 8, 2026):** 15/15 automated tests passed with Python 3.12 in the cloud environment. The new `workbench.py` also generated Markdown and HTML reports from synthetic data.
+
+```bash
+python workbench.py sample_auth.jsonl --format markdown
+python workbench.py sample_auth.csv --format html --output triage.html
+```
+
+Expanded coverage includes CSV/JSONL equivalence, report serialization, stable finding identifiers, configurable threshold behavior, malformed JSONL rejection, heuristic ordering, and HTML escaping. No personally executed Alexander test run is claimed.
 
 From the bundled fictional dataset: 10 events, 8 failures, one five-failure burst, one three-account source within a time window, and one success following five failures. Sample IPs belong to documentation-only ranges. These alerts are indicators requiring investigation, **not confirmed attacks**.
 
