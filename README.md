@@ -1,5 +1,7 @@
 # Security Log Analyzer
 
+**Start here:** [Technical case study](docs/CASE-STUDY.md) · [Cloud verification](docs/VALIDATION.md) · [Reproducible demonstration](docs/DEMO-EVIDENCE.md) · [Personal ownership checklist](docs/ALEX-OWNERSHIP.md)
+
 > **Flagship expansion:** Offline authentication triage with CSV/JSONL ingestion, configurable rules, structured findings, and shareable reports. AI-assisted starter/expansion; Alex's independent contributions must be recorded separately.
 
 An entry-level defensive security project for Alexander's new public portfolio.
